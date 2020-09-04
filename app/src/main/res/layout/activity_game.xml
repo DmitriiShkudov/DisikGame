@@ -1,0 +1,636 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:background="@drawable/back_main"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.GameActivity">
+
+    <RelativeLayout
+        android:visibility="visible"
+        android:id="@+id/fragmentLostConnection"
+        android:background="#8F3A3333"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.github.rahatarmanahmed.cpv.CircularProgressView
+            android:id="@+id/cpvWaiting"
+            android:layout_width="65sp"
+            android:layout_height="65sp"
+            app:cpv_animAutostart="true"
+            app:cpv_indeterminate="true"
+            app:cpv_color="@color/colorPrimaryDark"
+            android:layout_centerInParent="true">
+        </com.github.rahatarmanahmed.cpv.CircularProgressView>
+        <TextView
+            android:layout_marginTop="5sp"
+            android:id="@+id/tvWaiting"
+            android:layout_below="@+id/cpvWaiting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            android:gravity="center">
+        </TextView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.08">
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.2">
+
+        <RelativeLayout
+            android:layout_weight="0.3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+        </RelativeLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="4.5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:layout_weight="3"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+
+                    android:id="@+id/imgPlayerAvatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </de.hdodenhof.circleimageview.CircleImageView>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+                <TextView
+                    android:id="@+id/tvPlayerNick"
+                    android:fontFamily="verdana"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textSize="18sp">
+                </TextView>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+        </RelativeLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="4.5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_weight="3"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+
+                    android:id="@+id/imgOpponentAvatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </de.hdodenhof.circleimageview.CircleImageView>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+                <TextView
+                    android:id="@+id/tvOpponentNick"
+                    android:fontFamily="verdana"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textSize="18sp">
+                </TextView>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_weight="0.3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4">
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/fragmentChoose"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.3">
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+                <TextView
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="30sp"
+                    android:text="Choose a number">
+                </TextView>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.4">
+            </RelativeLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3.3">
+
+                    <Button
+                        android:id="@+id/chooseBtn1"
+                        android:text="1"
+                        android:fontFamily = "sans-serif"
+                        android:textSize="34sp"
+                        android:background="@drawable/btn_number_back"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </Button>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.9">
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3.3">
+
+                    <Button
+                        android:id="@+id/chooseBtn2"
+                        android:text="2"
+                        android:fontFamily = "sans-serif"
+                        android:textSize="34sp"
+                        android:background="@drawable/btn_number_back"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </Button>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.9">
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3.3">
+                    <Button
+                        android:id="@+id/chooseBtn3"
+                        android:text="3"
+                        android:fontFamily = "sans-serif"
+                        android:textSize="34sp"
+                        android:background="@drawable/btn_number_back"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </Button>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.9">
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3.3">
+
+                    <Button
+                        android:id="@+id/chooseBtn4"
+                        android:text="4"
+                        android:fontFamily = "sans-serif"
+                        android:textSize="34sp"
+                        android:background="@drawable/btn_number_back"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </Button>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.9">
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3.3">
+
+                    <Button
+                        android:id="@+id/chooseBtn5"
+                        android:text="5"
+                        android:fontFamily = "sans-serif"
+                        android:textSize="34sp"
+                        android:background="@drawable/btn_number_back"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </Button>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3.5">
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/fragmentGuess"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.3">
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+                <TextView
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="30sp"
+                    android:text="Guess a number">
+                </TextView>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.4">
+            </RelativeLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3.3">
+
+                    <Button
+                        android:id="@+id/guessBtn1"
+                        android:text="1"
+                        android:fontFamily = "sans-serif"
+                        android:textSize="34sp"
+                        android:background="@drawable/btn_number_back"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </Button>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.9">
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3.3">
+
+                    <Button
+                        android:id="@+id/guessBtn2"
+                        android:text="2"
+                        android:fontFamily = "sans-serif"
+                        android:textSize="34sp"
+                        android:background="@drawable/btn_number_back"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </Button>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.9">
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3.3">
+                    <Button
+                        android:id="@+id/guessBtn3"
+                        android:text="3"
+                        android:fontFamily = "sans-serif"
+                        android:textSize="34sp"
+                        android:background="@drawable/btn_number_back"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </Button>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.9">
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3.3">
+
+                    <Button
+                        android:id="@+id/guessBtn4"
+                        android:text="4"
+                        android:fontFamily = "sans-serif"
+                        android:textSize="34sp"
+                        android:background="@drawable/btn_number_back"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </Button>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.9">
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3.3">
+
+                    <Button
+                        android:id="@+id/guessBtn5"
+                        android:text="5"
+                        android:fontFamily = "sans-serif"
+                        android:textSize="34sp"
+                        android:background="@drawable/btn_number_back"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </Button>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3.5">
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.2">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_width="0dp">
+
+                <RelativeLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_weight="4.5"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:visibility="gone"
+                        android:id="@+id/tvPlayerGuess"
+                        android:background="@drawable/tv_guess_back"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="guess"
+                        android:gravity="center"
+                        android:textSize="20sp">
+                    </TextView>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+                </RelativeLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_width="0dp">
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_width="0dp">
+
+                <RelativeLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_weight="4.5"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:visibility="gone"
+                        android:id="@+id/tvOpponentGuess"
+                        android:background="@drawable/tv_guess_back"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="guess"
+                        android:gravity="center"
+                        android:textSize="20sp">
+                    </TextView>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+                </RelativeLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4">
+
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_width="0dp">
+                <TextView
+                    android:textColor="#044300"
+                    android:id="@+id/tvPlayerScore"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="35sp"
+                    android:textStyle="bold"
+                    android:gravity="center">
+                </TextView>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_width="0dp">
+                <TextView
+                    android:id="@+id/tvRaceTo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="20sp"
+                    android:textStyle="normal"
+                    android:gravity="center">
+                </TextView>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_width="0dp">
+                <TextView
+                    android:textColor="#044300"
+                    android:id="@+id/tvOpponentScore"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="35sp"
+                    android:textStyle="bold"
+                    android:gravity="center">
+                </TextView>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>
