@@ -7,10 +7,10 @@ import android.net.wifi.WifiInfo
 import android.net.wifi.WifiManager
 import com.example.disikgame.activities.LobbyActivity
 import com.example.disikgame.activities.LobbyActivity.Companion.USER_INFO
-import com.example.disikgame.http_client.httpClient
+import com.example.disikgame.http_client.HttpClient
 import com.example.disikgame.models.Player
 
-class PlayerProvider(private val context: Context) : Player() {
+class PlayerProvider( private val context: Context ) : Player() {
 
 
     override val avatarUri: Uri =
@@ -29,9 +29,6 @@ class PlayerProvider(private val context: Context) : Player() {
         getString(LobbyActivity.KEY_USER_NICK, NO_NICK) ?: NO_NICK
 
 
-    override val isConnectedToServer = httpClient.isPlayerConnected()
-
-
     override val isConnectedToWiFi: Boolean
     get() {
 
@@ -40,6 +37,8 @@ class PlayerProvider(private val context: Context) : Player() {
         return wifiManager.connectionInfo.ipAddress == -1962891072
 
     }
+
+    override var score = 0
 
 
 

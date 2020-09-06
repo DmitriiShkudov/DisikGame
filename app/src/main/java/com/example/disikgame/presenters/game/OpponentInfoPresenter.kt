@@ -7,6 +7,7 @@ import com.example.disikgame.activities.GameActivity.Companion.opponentProvider
 //import com.example.disikgame.activities.GameActivity.Companion.opponentProvider
 import com.example.disikgame.threads.CustomThread
 import com.example.disikgame.views.game.OpponentInfo
+import java.lang.Exception
 
 
 @InjectViewState
@@ -18,36 +19,10 @@ class OpponentInfoPresenter :  MvpPresenter<OpponentInfo>() {
 
     }
 
-    private val handler: Handler = Handler {
 
-        when (it.what) {
-
-            CONNECTED -> {
-
-                this.interruptWaitingAnOpponentThread()
-                viewState.connected()
-
-            }
-            else -> viewState.disconnected()
-
-        }
-
-        (true)
-
-    }
-
-    private val waitingAnOpponentThread = CustomThread(
-        message = CustomThread.Message.CONNECTION_TO_SERVER_STATE,
-        handler = this@OpponentInfoPresenter.handler) {
-
-        opponentProvider.isConnectedToServer
-
-    }
 
 
     fun showOpponentAvatar() = viewState.showOpponentAvatar(opponentProvider.avatarUri)
 
-    fun startWaitingAnOpponentThread() = this.waitingAnOpponentThread.start()
-    fun interruptWaitingAnOpponentThread() = this.waitingAnOpponentThread.interrupt()
 
 }

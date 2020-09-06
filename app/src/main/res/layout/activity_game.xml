@@ -10,22 +10,22 @@
     tools:context=".activities.GameActivity">
 
     <RelativeLayout
-        android:visibility="visible"
+        android:visibility="gone"
         android:id="@+id/fragmentLostConnection"
         android:background="#8F3A3333"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <com.github.rahatarmanahmed.cpv.CircularProgressView
             android:id="@+id/cpvWaiting"
-            android:layout_width="65sp"
-            android:layout_height="65sp"
+            android:layout_width="60sp"
+            android:layout_height="60sp"
             app:cpv_animAutostart="true"
             app:cpv_indeterminate="true"
             app:cpv_color="@color/colorPrimaryDark"
             android:layout_centerInParent="true">
         </com.github.rahatarmanahmed.cpv.CircularProgressView>
         <TextView
-            android:layout_marginTop="5sp"
+            android:layout_marginTop="8sp"
             android:id="@+id/tvWaiting"
             android:layout_below="@+id/cpvWaiting"
             android:layout_width="match_parent"
@@ -38,7 +38,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.08">
+        android:layout_weight="0.2">
     </RelativeLayout>
 
     <LinearLayout
@@ -55,7 +55,7 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_weight="4.5"
+            android:layout_weight="3.5"
             android:layout_width="0dp"
             android:layout_height="match_parent">
             <RelativeLayout
@@ -74,6 +74,12 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.3">
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="0dp">
@@ -83,7 +89,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:textSize="18sp">
+                    android:textSize="21sp">
                 </TextView>
             </RelativeLayout>
 
@@ -97,7 +103,7 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_weight="4.5"
+            android:layout_weight="3.5"
             android:layout_width="0dp"
             android:layout_height="match_parent">
 
@@ -117,6 +123,12 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.3">
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="0dp">
@@ -126,7 +138,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:textSize="18sp">
+                    android:textSize="21sp">
                 </TextView>
             </RelativeLayout>
 
@@ -525,7 +537,7 @@
                         android:layout_height="match_parent"
                         android:text="guess"
                         android:gravity="center"
-                        android:textSize="20sp">
+                        android:textSize="17sp">
                     </TextView>
                 </RelativeLayout>
 
@@ -565,7 +577,7 @@
                         android:layout_height="match_parent"
                         android:text="guess"
                         android:gravity="center"
-                        android:textSize="20sp">
+                        android:textSize="17sp">
                     </TextView>
                 </RelativeLayout>
 
@@ -592,7 +604,7 @@
                     android:id="@+id/tvPlayerScore"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textSize="35sp"
+                    android:textSize="38sp"
                     android:textStyle="bold"
                     android:gravity="center">
                 </TextView>
@@ -621,7 +633,7 @@
                     android:id="@+id/tvOpponentScore"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textSize="35sp"
+                    android:textSize="38sp"
                     android:textStyle="bold"
                     android:gravity="center">
                 </TextView>

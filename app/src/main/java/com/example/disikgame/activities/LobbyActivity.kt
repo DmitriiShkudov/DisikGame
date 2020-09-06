@@ -4,16 +4,22 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.example.disikgame.R
+import com.example.disikgame.http_client.ClientRequest
+import com.example.disikgame.http_client.HttpClient
 import com.example.disikgame.presenters.lobby.*
+import com.example.disikgame.providers.GameProvider
 import com.example.disikgame.providers.PlayerProvider
 import com.example.disikgame.views.lobby.*
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_lobby.*
+import okhttp3.OkHttp
+import okhttp3.OkHttpClient
 
 
 class LobbyActivity : MvpAppCompatActivity(),
@@ -31,6 +37,7 @@ class LobbyActivity : MvpAppCompatActivity(),
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 
         internal lateinit var playerProvider: PlayerProvider
+        internal lateinit var gameProvider: GameProvider
 
     }
 
@@ -58,6 +65,10 @@ class LobbyActivity : MvpAppCompatActivity(),
 
         // define player info and onClicks
         playerProvider = PlayerProvider(applicationContext)
+        gameProvider = GameProvider(playerProvider, GameActivity.opponentProvider)
+
+
+
 
         playerNickTv.setOnLongClickListener {
 
@@ -108,7 +119,19 @@ class LobbyActivity : MvpAppCompatActivity(),
 
         btnPlay.setOnClickListener {
 
-            playButtonPresenter.startGame()
+            val httpClient = HttpClient()
+
+            Log.d("GG", httpClient.toString())
+
+            if (httpClient.sendRequest(ClientRequest.NEW_PLAYER) != null) {
+
+                playButtonPresenter.startGame()
+
+            } else {
+
+                Toast.makeText(applicationContext, "Заебулу", Toast.LENGTH_LONG).show()
+
+            }
 
         }
 

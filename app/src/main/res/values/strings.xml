@@ -3,4 +3,5 @@
     <string name="lost_connection">Connection is lost holy shit\'s</string>
     <string name="ready_to_play">Ready to play</string>
     <string name="connecting">Connecting...</string>
+    <string name="waiting_the_opponent">Waiting the opponent!</string>
 </resources>

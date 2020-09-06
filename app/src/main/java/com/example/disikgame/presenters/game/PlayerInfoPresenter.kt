@@ -20,34 +20,6 @@ class PlayerInfoPresenter : MvpPresenter<PlayerInfo>() {
 
     }
 
-    private val handler = Handler {
-
-        when (it.what) {
-
-            CONNECTED -> viewState.connected()
-            else -> viewState.disconnected()
-
-        }
-
-        (true)
-
-    }
-
-    private val handleConnectionStateThread = CustomThread(
-        message = CustomThread.Message.CONNECTION_TO_SERVER_STATE,
-        handler = this.handler) {
-
-        playerProvider.isConnectedToServer && playerProvider.isConnectedToWiFi
-
-    }
-
-    fun showPlayerAvatar() = viewState.showPlayerAvatar(playerProvider.avatarUri)
-    fun showPlayerNick() = viewState.showPlayerNick(playerProvider.nick)
-
-    fun startHandleConnectionStateThread() = this.handleConnectionStateThread.start()
-    fun interruptHandleConnectionStateThread() = this.handleConnectionStateThread.interrupt()
-
-
 
 
 }

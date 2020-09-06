@@ -2,9 +2,12 @@ package com.example.disikgame.threads
 
 import android.os.Handler
 import android.util.Log
+import com.example.disikgame.presenters.game.OpponentInfoPresenter
 //import com.example.disikgame.presenters.game.OpponentInfoPresenter
 import com.example.disikgame.presenters.game.PlayerInfoPresenter
 import com.example.disikgame.presenters.lobby.PlayButtonPresenter
+import java.lang.Exception
+import kotlin.concurrent.timer
 
 class CustomThread() : Thread() {
 
@@ -44,48 +47,23 @@ class CustomThread() : Thread() {
                     }
 
             }
-
-            Message.CONNECTION_TO_SERVER_STATE ->
-
-                this.customRun = {
-
-                    while (true) {
-
-                        if (action.invoke() as Boolean) {
-
-                            handler.sendEmptyMessage(PlayerInfoPresenter.CONNECTED)
-
-                        } else {
-
-                            handler.sendEmptyMessage(-1)
-
-                        }
-
-                        sleep(1250)
-
-                    }
-
-                }
-
             Message.OPPONENT_CONNECTION_STATE -> {
 
                 this.customRun = {
 
-                    while (true) {
+                    sleep(4000)
 
                         if (action.invoke() as Boolean) {
 
-                            //handler.sendEmptyMessage(OpponentInfoPresenter.CONNECTED)
-
-                        } else {
-
-                            handler.sendEmptyMessage(-1)
+                            handler.sendEmptyMessage(OpponentInfoPresenter.CONNECTED)
 
                         }
 
-                        sleep(300)
+                    //handler.sendEmptyMessage(-1)
 
                     }
+
+
 
                 }
 
@@ -94,5 +72,3 @@ class CustomThread() : Thread() {
         }
 
     }
-
-}

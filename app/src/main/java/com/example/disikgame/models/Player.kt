@@ -11,7 +11,7 @@ abstract class Player {
 
     abstract val nick: String
     abstract val avatarUri: Uri
-    abstract val isConnectedToServer: Boolean
     abstract val isConnectedToWiFi: Boolean?
+    abstract var score: Int
 
 }
