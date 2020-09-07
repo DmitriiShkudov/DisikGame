@@ -38,6 +38,7 @@ class LobbyActivity : MvpAppCompatActivity(),
 
         internal lateinit var playerProvider: PlayerProvider
         internal lateinit var gameProvider: GameProvider
+        internal lateinit var httpClient: HttpClient
 
     }
 
@@ -65,10 +66,9 @@ class LobbyActivity : MvpAppCompatActivity(),
 
         // define player info and onClicks
         playerProvider = PlayerProvider(applicationContext)
-        gameProvider = GameProvider(playerProvider, GameActivity.opponentProvider)
+        gameProvider = GameProvider()
 
-
-
+        httpClient = HttpClient()
 
         playerNickTv.setOnLongClickListener {
 
@@ -119,11 +119,7 @@ class LobbyActivity : MvpAppCompatActivity(),
 
         btnPlay.setOnClickListener {
 
-            val httpClient = HttpClient()
-
-            Log.d("GG", httpClient.toString())
-
-            if (httpClient.sendRequest(ClientRequest.NEW_PLAYER) != null) {
+            if (httpClient.sendRequest(ClientRequest.NEW_PLAYER) == null) {
 
                 playButtonPresenter.startGame()
 

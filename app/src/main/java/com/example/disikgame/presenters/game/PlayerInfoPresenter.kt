@@ -5,6 +5,7 @@ import android.net.wifi.WifiManager
 import android.os.Handler
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
+import com.example.disikgame.activities.GameActivity
 import com.example.disikgame.activities.LobbyActivity.Companion.playerProvider
 import com.example.disikgame.presenters.lobby.PlayButtonPresenter
 import com.example.disikgame.threads.CustomThread
@@ -14,12 +15,7 @@ import javax.inject.Inject
 @InjectViewState
 class PlayerInfoPresenter : MvpPresenter<PlayerInfo>() {
 
-    companion object {
-
-        const val CONNECTED = 0
-
-    }
-
-
+    fun showPlayerAvatar() = viewState.showPlayerAvatar(playerProvider.avatarUri)
+    fun showPlayerNick() = viewState.showPlayerNick(playerProvider.nick)
 
 }

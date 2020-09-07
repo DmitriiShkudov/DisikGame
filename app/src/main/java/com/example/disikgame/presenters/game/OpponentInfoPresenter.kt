@@ -13,16 +13,7 @@ import java.lang.Exception
 @InjectViewState
 class OpponentInfoPresenter :  MvpPresenter<OpponentInfo>() {
 
-    companion object {
-
-        const val CONNECTED = 0
-
-    }
-
-
-
-
     fun showOpponentAvatar() = viewState.showOpponentAvatar(opponentProvider.avatarUri)
-
+    fun showOpponentNick() = viewState.showOpponentNick(opponentProvider.nick)
 
 }

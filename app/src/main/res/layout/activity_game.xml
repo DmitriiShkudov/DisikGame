@@ -159,6 +159,37 @@
 
         <LinearLayout
             android:visibility="gone"
+            android:id="@+id/tvOpponentIsGuessing"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="30sp">
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.7">
+            </RelativeLayout>
+            <TextView
+                android:layout_weight="4"
+                android:textSize="20sp"
+                android:layout_gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="@string/opponent_is_guessing">
+            </TextView>
+            <com.github.rahatarmanahmed.cpv.CircularProgressView
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:cpv_animAutostart="true"
+                app:cpv_indeterminate="true"
+                app:cpv_color="#292424"
+                android:visibility="visible">
+            </com.github.rahatarmanahmed.cpv.CircularProgressView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:visibility="gone"
             android:id="@+id/fragmentChoose"
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -604,7 +635,7 @@
                     android:id="@+id/tvPlayerScore"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textSize="38sp"
+                    android:textSize="42sp"
                     android:textStyle="bold"
                     android:gravity="center">
                 </TextView>
@@ -618,7 +649,7 @@
                     android:id="@+id/tvRaceTo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textSize="20sp"
+                    android:textSize="24sp"
                     android:textStyle="normal"
                     android:gravity="center">
                 </TextView>
@@ -633,13 +664,18 @@
                     android:id="@+id/tvOpponentScore"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textSize="38sp"
+                    android:textSize="42sp"
                     android:textStyle="bold"
                     android:gravity="center">
                 </TextView>
             </RelativeLayout>
 
         </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5">
+        </RelativeLayout>
 
 
 

@@ -45,30 +45,7 @@ class CustomThread() : Thread() {
                         sleep(500)
 
                     }
-
-            }
-            Message.OPPONENT_CONNECTION_STATE -> {
-
-                this.customRun = {
-
-                    sleep(4000)
-
-                        if (action.invoke() as Boolean) {
-
-                            handler.sendEmptyMessage(OpponentInfoPresenter.CONNECTED)
-
-                        }
-
-                    //handler.sendEmptyMessage(-1)
-
-                    }
-
-
-
                 }
-
-            }
-
         }
-
     }
+}

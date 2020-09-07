@@ -1,56 +1,58 @@
 package com.example.disikgame.http_client
 
-import com.example.disikgame.activities.GameActivity
 import com.example.disikgame.activities.LobbyActivity.Companion.gameProvider
-import com.example.disikgame.providers.GameProvider
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import okhttp3.Response
-import java.lang.Exception
+import java.net.URL
+
 
 class HttpClient : OkHttpClient() {
 
-
-
-    val URL = "192.168.0.138"
     val GAME_INFO = "/gameinfo"
     val NEW_PLAYER = "/newplayer"
 
-    private val httpUrlNewPlayer = HttpUrl.Builder().
-        addQueryParameter("name", gameProvider.player.nick).
-        addQueryParameter("avatarUri", gameProvider.player.avatarUri.toString()).host(URL).
-        addPathSegment(NEW_PLAYER).scheme("http://").build()
+
+    var url = HttpUrl.Builder()
+        .scheme("https")
+        .host("192.168.0.138")
+        .addQueryParameter("name", gameProvider.player.nick)
+        .addQueryParameter("avatarUri", gameProvider.player.avatarUri.toString())
+        .build()
 
 
     private var requestNewPlayer = Request.
                                     Builder().
-                                    url(httpUrlNewPlayer).
+                                    url(url).
                                     build()
 
-    private val requestGameInfo = Request.
+    /*private val requestGameInfo = Request.
                                     Builder().
                                     url(URL + GAME_INFO).
-                                    build()
-
+                                    build() */
 
     fun sendRequest(request: ClientRequest): String? =
 
             when (request) {
 
-            ClientRequest.NEW_PLAYER -> try {
+                ClientRequest.NEW_PLAYER -> try {
 
-                this.newCall(requestNewPlayer).execute().toString()
+                    this.newCall(requestNewPlayer).execute().toString()
 
-            } catch (e: Exception) {null}
+                } catch (e: Exception) {
+                    null
+                }
 
-            ClientRequest.GAME_INFO -> try {
+                /*ClientRequest.GAME_INFO -> try {
 
-                this.newCall(requestGameInfo).execute().toString()
+                    this.newCall(requestGameInfo).execute().toString()
 
-            } catch (e: Exception) {null}
+                } catch (e: Exception) {
+                    null
+                } */
 
-    }
+                else -> null
+            }
 
 
 
