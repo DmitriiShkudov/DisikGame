@@ -1,9 +1,9 @@
 package com.example.disikgame.activities
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -12,14 +12,16 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.example.disikgame.R
 import com.example.disikgame.http_client.ClientRequest
 import com.example.disikgame.http_client.HttpClient
+import com.example.disikgame.http_client.Response
 import com.example.disikgame.presenters.lobby.*
 import com.example.disikgame.providers.GameProvider
+import com.example.disikgame.providers.Player
 import com.example.disikgame.providers.PlayerProvider
+import com.example.disikgame.providers.PlayerProvider.NO_AVATAR
 import com.example.disikgame.views.lobby.*
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_lobby.*
-import okhttp3.OkHttp
-import okhttp3.OkHttpClient
+import java.util.*
 
 
 class LobbyActivity : MvpAppCompatActivity(),
@@ -33,12 +35,7 @@ class LobbyActivity : MvpAppCompatActivity(),
         const val KEY_USER_AVATAR_URI = "USER_AVATAR_URI"
         const val USER_INFO = "USER"
 
-        fun showToast(context: Context, message: String) =
-            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 
-        internal lateinit var playerProvider: PlayerProvider
-        internal lateinit var gameProvider: GameProvider
-        internal lateinit var httpClient: HttpClient
 
     }
 
@@ -58,6 +55,47 @@ class LobbyActivity : MvpAppCompatActivity(),
     @InjectPresenter
     lateinit var avatarChangeDialogPresenter: AvatarChangeDialogPresenter
 
+    val handler = Handler {
+
+        when (it.what) {
+
+            Response.NewPlayer.FIRST_PLAYER_ADDED_NUM -> {
+
+                Log.d("LOBBY_HANDLER", "FIRST PLAYER ADDED")
+                val intent = Intent(this@LobbyActivity, GameActivity::class.java)
+                intent.action = Response.NewPlayer.FIRST_PLAYER_ADDED
+                startActivity(intent)
+
+            }
+
+            Response.NewPlayer.GAME_IS_STARTED_NUM -> {
+
+                Log.d("LOBBY_HANDLER", "GAME IS STARTED")
+                val intent = Intent(this@LobbyActivity, GameActivity::class.java)
+                intent.action = Response.NewPlayer.GAME_IS_STARTED
+                startActivity(intent)
+
+            }
+
+            Response.NewPlayer.ALREADY_TWO_PLAYERS_NUM -> {
+
+                Log.d("LOBBY_HANDLER", "ALREADY TWO PLAYERS")
+                Toast.makeText(applicationContext, "There are two players already in the game",
+                    Toast.LENGTH_LONG).show()
+
+            }
+            else -> {
+
+                val intent = Intent(this@LobbyActivity, GameActivity::class.java)
+                intent.action = Response.NewPlayer.GAME_IS_STARTED
+                startActivity(intent)
+
+            }
+
+        }
+        true
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -65,10 +103,8 @@ class LobbyActivity : MvpAppCompatActivity(),
         setContentView(R.layout.activity_lobby)
 
         // define player info and onClicks
-        playerProvider = PlayerProvider(applicationContext)
-        gameProvider = GameProvider()
-
-        httpClient = HttpClient()
+        initPlayer()
+        HttpClient.lobbyHandler = this.handler
 
         playerNickTv.setOnLongClickListener {
 
@@ -119,15 +155,7 @@ class LobbyActivity : MvpAppCompatActivity(),
 
         btnPlay.setOnClickListener {
 
-            if (httpClient.sendRequest(ClientRequest.NEW_PLAYER) == null) {
-
-                playButtonPresenter.startGame()
-
-            } else {
-
-                Toast.makeText(applicationContext, "Заебулу", Toast.LENGTH_LONG).show()
-
-            }
+            HttpClient.sendRequest(ClientRequest.NEW_PLAYER.first)
 
         }
 
@@ -135,6 +163,14 @@ class LobbyActivity : MvpAppCompatActivity(),
         playerNickPresenter.setupNick() // load nick
         playButtonPresenter.startHandleWiFiConnectionStateThread() // handle wi-fi connection
 
+    }
+
+    override fun onResume() {
+        if (PlayerProvider.isWaitingTheOpponent) {
+            PlayerProvider.isWaitingTheOpponent = false
+            HttpClient.sendRequest(ClientRequest.REMOVE_PLAYER.first)
+        }
+        super.onResume()
     }
 
     // avatar
@@ -157,12 +193,6 @@ class LobbyActivity : MvpAppCompatActivity(),
         btnPlay.isEnabled = false
         statusBar.text = getString(R.string.connecting)
         cpvStatusBar.visibility = View.VISIBLE
-
-    }
-
-    override fun startGame() {
-
-        startActivity(Intent(baseContext, GameActivity::class.java))
 
     }
 
@@ -191,18 +221,22 @@ class LobbyActivity : MvpAppCompatActivity(),
 
     override fun changeNick(nick: String) {
         getSharedPreferences(USER_INFO,0).edit().putString(KEY_USER_NICK, nick).apply()
+        initPlayer()
         playerNickTv.text = nick
     }
 
-    override fun showError(message: String) = showToast(applicationContext, message)
+    override fun showError(message: String) =
+        Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
 
-    override fun showSuccess() = showToast(applicationContext, "Successful")
+    override fun showSuccess() =
+        Toast.makeText(applicationContext, "Successful", Toast.LENGTH_SHORT).show()
 
     // dialog change avatar
 
     override fun changeAvatar(uri: Uri) {
         getSharedPreferences(USER_INFO,0).edit().
         putString(KEY_USER_AVATAR_URI, uri.toString()).apply()
+        initPlayer()
         Picasso.with(applicationContext).load(uri).into(playerAvatarImageView)
     }
 
@@ -214,6 +248,23 @@ class LobbyActivity : MvpAppCompatActivity(),
     override fun removeAvatarDialog() {
         dialogNewAvatar.visibility = View.GONE
         playerAvatarImageView.isClickable = true
+    }
+
+    private fun initPlayer() {
+
+        PlayerProvider.context = applicationContext
+
+        PlayerProvider.nick = getSharedPreferences(USER_INFO, 0)?.
+            getString(KEY_USER_NICK, PlayerProvider.NO_NICK) ?: PlayerProvider.NO_NICK
+
+        PlayerProvider.id = Random().nextLong()
+        Log.d("SETUP ID: ", PlayerProvider.id.toString())
+
+        PlayerProvider.avatarUri =
+
+            getSharedPreferences(USER_INFO, 0).getString(KEY_USER_AVATAR_URI, PlayerProvider.NO_AVATAR)
+                ?: PlayerProvider.NO_AVATAR
+
     }
 
 }

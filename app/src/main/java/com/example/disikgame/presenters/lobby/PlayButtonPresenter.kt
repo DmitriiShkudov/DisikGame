@@ -7,7 +7,6 @@ import android.util.Log
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.example.disikgame.activities.LobbyActivity
-import com.example.disikgame.activities.LobbyActivity.Companion.playerProvider
 import com.example.disikgame.providers.PlayerProvider
 import com.example.disikgame.threads.CustomThread
 import com.example.disikgame.views.lobby.PlayButton
@@ -20,9 +19,6 @@ class PlayButtonPresenter() : MvpPresenter<PlayButton>() {
         const val CONNECTED = 0
 
     }
-
-
-
 
     private val handler = Handler {
 
@@ -41,13 +37,9 @@ class PlayButtonPresenter() : MvpPresenter<PlayButton>() {
         message = CustomThread.Message.CONNECTION_TO_WIFI_STATE,
         handler = this.handler) {
 
-        playerProvider.isConnectedToWiFi
+        !PlayerProvider.isLostConnection
 
     }
 
     fun startHandleWiFiConnectionStateThread() = this.handleWifiConnection.start()
-
-
-    fun startGame() = viewState.startGame()
-
 }

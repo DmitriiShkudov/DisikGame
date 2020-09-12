@@ -6,6 +6,5 @@ interface PlayButton : MvpView {
 
     fun readyToPlay()
     fun connecting()
-    fun startGame()
 
 }

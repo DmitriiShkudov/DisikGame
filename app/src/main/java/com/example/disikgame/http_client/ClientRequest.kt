@@ -1,7 +1,46 @@
 package com.example.disikgame.http_client
 
-enum class ClientRequest(str: String) {
+import com.example.disikgame.http_client.HttpClient.HOST
+import com.example.disikgame.http_client.HttpClient.PORT
+import com.example.disikgame.providers.PlayerProvider
+import okhttp3.HttpUrl
 
-    NEW_PLAYER("/newplayer"), GAME_INFO("/gameinfo")
+object ClientRequest {
+
+    val NEW_PLAYER: Pair<String, HttpUrl> =
+        "new_player" to
+
+                HttpUrl.Builder()
+        .scheme("http")
+        .host(HOST)
+        .port(PORT)
+        .addPathSegment("new_player")
+        .addQueryParameter("nick", PlayerProvider.nick)
+        .addQueryParameter("avatarUri", PlayerProvider.avatarUri.toString())
+        .addQueryParameter("id", PlayerProvider.id.toString())
+        .build()
+
+
+
+    val GAME_INFO =
+        "game_info" to
+
+            HttpUrl.Builder()
+        .scheme("http")
+        .host(HOST)
+        .port(PORT)
+        .addPathSegment("game_info")
+        .build()
+
+
+
+    val REMOVE_PLAYER = "remove_player" to
+
+            HttpUrl.Builder()
+        .scheme("http")
+        .host(HOST)
+        .port(PORT)
+        .addPathSegment("remove_player")
+        .build()
 
 }

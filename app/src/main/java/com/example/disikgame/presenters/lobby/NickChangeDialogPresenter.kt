@@ -12,7 +12,7 @@ class NickChangeDialogPresenter : MvpPresenter<NickChangeDialog>() {
 
     fun changeNick(nick: String) {
 
-        if (nick.length >= 3) {
+        if (nick.length >= 2) {
 
             viewState.changeNick(nick)
             viewState.removeNickDialog()
