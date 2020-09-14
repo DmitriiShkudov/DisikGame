@@ -7,17 +7,19 @@ open class Game() {
     @JsonProperty var player1: Player? = null
     @JsonProperty var player2: Player? = null
     @JsonProperty var guessedNumber: Int? = null
+    @JsonProperty var chosenNumber: Int? = null
     @JsonProperty var raceTo: Int? = null
+    @JsonProperty var gameIsStarted: Boolean = false
 
-    constructor(player1: Player?,
-                player2: Player?,
-                guessedNumber: Int?,
-                raceTo: Int?) : this() {
+    constructor(guessedNumber: Int?,
+                chosenNumber: Int?,
+                raceTo: Int?,
+                gameIsStarted: Boolean) : this() {
 
-        this.player1 = player1
-        this.player2 = player2
         this.guessedNumber = guessedNumber
+        this.chosenNumber = guessedNumber
         this.raceTo = raceTo
+        this.gameIsStarted = gameIsStarted
 
     }
 

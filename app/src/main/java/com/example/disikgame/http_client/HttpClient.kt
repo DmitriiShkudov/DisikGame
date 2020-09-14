@@ -4,8 +4,6 @@ import android.os.Handler
 import android.util.Log
 import com.example.disikgame.providers.Game
 import com.example.disikgame.providers.GameProvider
-import com.example.disikgame.providers.OpponentProvider
-import com.example.disikgame.providers.PlayerProvider
 import com.example.disikgame.threads.CustomThread
 import com.fasterxml.jackson.databind.ObjectMapper
 import okhttp3.OkHttpClient
@@ -15,8 +13,8 @@ import java.lang.Thread.sleep
 
 object HttpClient : OkHttpClient() {
 
-    const val HOST = "172.19.120.45"
-    const val PORT = 8080
+    const val HOST = "172.19.124.12"
+    const val PORT = 8000
 
     lateinit var lobbyHandler: Handler
     lateinit var gameHandler: Handler
@@ -71,8 +69,8 @@ object HttpClient : OkHttpClient() {
 
                                     if (receivedPlayer != null) {
 
-                                        OpponentProvider.nick = receivedPlayer.nick
-                                        OpponentProvider.avatarUri = receivedPlayer.avatarUri
+                                        GameProvider.OpponentProvider.nick = receivedPlayer.nick
+                                        GameProvider.OpponentProvider.avatarUri = receivedPlayer.avatarUri
 
                                         true
 
@@ -116,14 +114,13 @@ object HttpClient : OkHttpClient() {
 
                                     GameProvider.player1 = receivedGameInfo.player1
                                     GameProvider.player2 = receivedGameInfo.player2
-                                    GameProvider.guessedNumber = receivedGameInfo.guessedNumber
                                     GameProvider.raceTo = receivedGameInfo.raceTo
 
-                                    OpponentProvider.nick = receivedGameInfo.player1?.nick
-                                    OpponentProvider.avatarUri = receivedGameInfo.player1?.avatarUri
+                                    GameProvider.OpponentProvider.nick = receivedGameInfo.player1?.nick
+                                    GameProvider.OpponentProvider.avatarUri = receivedGameInfo.player1?.avatarUri
 
-                                    PlayerProvider.nick = receivedGameInfo.player2?.nick
-                                    PlayerProvider.avatarUri = receivedGameInfo.player2?.avatarUri
+                                    GameProvider.PlayerProvider.nick = receivedGameInfo.player2?.nick
+                                    GameProvider.PlayerProvider.avatarUri = receivedGameInfo.player2?.avatarUri
 
                                     true
 
@@ -137,6 +134,25 @@ object HttpClient : OkHttpClient() {
                             }.start()
                             sleep(500)
 
+
+                        }
+
+                        Response.Update.UPDATE -> {
+
+                            val gameInfoJSON =
+                                this.newCall(requestGameInfo).execute().body!!.string()
+
+                            val receivedGameInfo =
+                                ObjectMapper().readValue(gameInfoJSON, Game::class.java)
+
+                            GameProvider.PlayerProvider.score = receivedGameInfo.player1!!.score
+                            GameProvider.OpponentProvider.score = receivedGameInfo.player2!!.score
+
+                            GameProvider.PlayerProvider.guessing = receivedGameInfo.player1!!.guessing
+                            GameProvider.OpponentProvider.guessing = receivedGameInfo.player2!!.guessing
+
+                            GameProvider.PlayerProvider.guessed = receivedGameInfo.player1!!.guessed
+                            GameProvider.OpponentProvider.guessed = receivedGameInfo.player2!!.guessed
 
                         }
 

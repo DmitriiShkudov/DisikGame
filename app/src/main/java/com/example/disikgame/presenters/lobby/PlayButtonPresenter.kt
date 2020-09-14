@@ -1,13 +1,9 @@
 package com.example.disikgame.presenters.lobby
 
-import android.content.Context
-import android.net.wifi.WifiManager
 import android.os.Handler
-import android.util.Log
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
-import com.example.disikgame.activities.LobbyActivity
-import com.example.disikgame.providers.PlayerProvider
+import com.example.disikgame.providers.GameProvider
 import com.example.disikgame.threads.CustomThread
 import com.example.disikgame.views.lobby.PlayButton
 
@@ -37,7 +33,7 @@ class PlayButtonPresenter() : MvpPresenter<PlayButton>() {
         message = CustomThread.Message.CONNECTION_TO_WIFI_STATE,
         handler = this.handler) {
 
-        !PlayerProvider.isLostConnection
+        !GameProvider.PlayerProvider.isLostConnection
 
     }
 

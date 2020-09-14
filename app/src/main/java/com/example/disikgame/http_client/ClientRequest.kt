@@ -2,7 +2,7 @@ package com.example.disikgame.http_client
 
 import com.example.disikgame.http_client.HttpClient.HOST
 import com.example.disikgame.http_client.HttpClient.PORT
-import com.example.disikgame.providers.PlayerProvider
+import com.example.disikgame.providers.GameProvider
 import okhttp3.HttpUrl
 
 object ClientRequest {
@@ -15,9 +15,9 @@ object ClientRequest {
         .host(HOST)
         .port(PORT)
         .addPathSegment("new_player")
-        .addQueryParameter("nick", PlayerProvider.nick)
-        .addQueryParameter("avatarUri", PlayerProvider.avatarUri.toString())
-        .addQueryParameter("id", PlayerProvider.id.toString())
+        .addQueryParameter("nick", GameProvider.PlayerProvider.nick)
+        .addQueryParameter("avatarUri", GameProvider.PlayerProvider.avatarUri.toString())
+        .addQueryParameter("id", GameProvider.PlayerProvider.id.toString())
         .build()
 
 

@@ -15,9 +15,6 @@ import com.example.disikgame.http_client.HttpClient
 import com.example.disikgame.http_client.Response
 import com.example.disikgame.presenters.lobby.*
 import com.example.disikgame.providers.GameProvider
-import com.example.disikgame.providers.Player
-import com.example.disikgame.providers.PlayerProvider
-import com.example.disikgame.providers.PlayerProvider.NO_AVATAR
 import com.example.disikgame.views.lobby.*
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_lobby.*
@@ -166,8 +163,8 @@ class LobbyActivity : MvpAppCompatActivity(),
     }
 
     override fun onResume() {
-        if (PlayerProvider.isWaitingTheOpponent) {
-            PlayerProvider.isWaitingTheOpponent = false
+        if (GameProvider.PlayerProvider.isWaitingTheOpponent) {
+            GameProvider.PlayerProvider.isWaitingTheOpponent = false
             HttpClient.sendRequest(ClientRequest.REMOVE_PLAYER.first)
         }
         super.onResume()
@@ -252,18 +249,18 @@ class LobbyActivity : MvpAppCompatActivity(),
 
     private fun initPlayer() {
 
-        PlayerProvider.context = applicationContext
+        GameProvider.PlayerProvider.context = applicationContext
 
-        PlayerProvider.nick = getSharedPreferences(USER_INFO, 0)?.
-            getString(KEY_USER_NICK, PlayerProvider.NO_NICK) ?: PlayerProvider.NO_NICK
+        GameProvider.PlayerProvider.nick = getSharedPreferences(USER_INFO, 0)?.
+            getString(KEY_USER_NICK, GameProvider.PlayerProvider.NO_NICK) ?: GameProvider.PlayerProvider.NO_NICK
 
-        PlayerProvider.id = Random().nextLong()
-        Log.d("SETUP ID: ", PlayerProvider.id.toString())
+        GameProvider.PlayerProvider.id = Random().nextLong()
+        Log.d("SETUP ID: ", GameProvider.PlayerProvider.id.toString())
 
-        PlayerProvider.avatarUri =
+        GameProvider.PlayerProvider.avatarUri =
 
-            getSharedPreferences(USER_INFO, 0).getString(KEY_USER_AVATAR_URI, PlayerProvider.NO_AVATAR)
-                ?: PlayerProvider.NO_AVATAR
+            getSharedPreferences(USER_INFO, 0).getString(KEY_USER_AVATAR_URI, GameProvider.PlayerProvider.NO_AVATAR)
+                ?: GameProvider.PlayerProvider.NO_AVATAR
 
     }
 

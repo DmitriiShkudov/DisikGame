@@ -16,7 +16,14 @@ object Response {
     object RemovePlayer {
 
         const val REMOVE_PLAYER = "Remove player"
-        const val REMOVE_PLAYER_NUM = 1
+        const val REMOVE_PLAYER_NUM = 4
+
+    }
+
+    object Update {
+
+        const val UPDATE = "Update"
+        const val UPDATE_NUM = 5
 
     }
 

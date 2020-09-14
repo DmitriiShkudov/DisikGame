@@ -11,6 +11,9 @@ open class Player() {
     @JsonProperty open var score: Int = 0
     @JsonProperty open var guessing: Boolean = false
     @JsonProperty open var guessed: Boolean = false
+    @JsonProperty open var choosing: Boolean = false
+    @JsonProperty open var chose: Boolean = false
+    @JsonProperty open var success: Boolean = false
     @JsonProperty open var isWaitingTheOpponent: Boolean = false
     @JsonProperty open var isLostConnection: Boolean = false
 
@@ -20,6 +23,8 @@ open class Player() {
                 score: Int = 0,
                 guessing: Boolean = false,
                 guessed: Boolean = false,
+                choosing: Boolean = false,
+                chose: Boolean = false,
                 isWaitingTheOpponent: Boolean = false,
                 isLostConnection: Boolean = false) : this() {
 
@@ -29,6 +34,8 @@ open class Player() {
         this.score = score
         this.guessing = guessing
         this.guessed = guessed
+        this.choosing = choosing
+        this.chose = chose
         this.isWaitingTheOpponent = isWaitingTheOpponent
         this.isLostConnection = isLostConnection
 

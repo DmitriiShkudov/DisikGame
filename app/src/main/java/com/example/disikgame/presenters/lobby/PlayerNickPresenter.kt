@@ -1,14 +1,13 @@
 package com.example.disikgame.presenters.lobby
 
-import android.content.Context
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
-import com.example.disikgame.providers.PlayerProvider
+import com.example.disikgame.providers.GameProvider
 import com.example.disikgame.views.lobby.PlayerNick
 
 @InjectViewState
 class PlayerNickPresenter : MvpPresenter<PlayerNick>() {
 
-    fun setupNick() = viewState.setupPlayerNick(PlayerProvider.nick!!)
+    fun setupNick() = viewState.setupPlayerNick(GameProvider.PlayerProvider.nick!!)
 
 }
